@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package roulette.config;
+
+option java_multiple_files = true;
+option java_package = "moe.best.central.roulette.config";
+
+// A configuration for Roulette within a specific Discord Guild.
+message GuildConfiguration {
+
+  // Snowflake of the Guild this config applies to.
+  // Required.
+  optional uint64 id = 1;
+
+  // Snowflakes of channels to observe in the Guild.
+  // Required.
+  repeated uint64 channels = 2;
+
+  // Snowflakes of moderator-level roles in this Guild.
+  // Required.
+  repeated uint64 moderator_roles = 3;
+
+  // Snowflakes of protected roles in this Guild.
+  // Protected roles are immune to negative rolled effects.
+  // Required.
+  repeated uint64 protected_roles = 4;
+}

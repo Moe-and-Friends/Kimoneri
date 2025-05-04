@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package roulette.actions;
+
+option java_multiple_files = true;
+option java_package = "moe.best.kimoneri.roulette.actions";
+
+// TODO: Attach proto definitions for Redis-based tasks.
+message Action2 {
+  uint32 foo = 1;
+}
