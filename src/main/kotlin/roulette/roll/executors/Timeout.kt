@@ -19,10 +19,25 @@ object TimeoutExecutor {
         timeout: Action.Timeout,
         message: Message,
     ): Boolean {
-        val duration = Random.nextInt(
-            from = timeout.lowerBound.inWholeMinutes.toInt(),
-            until = timeout.upperBound.inWholeMinutes.toInt()
-        ).minutes
+        val duration = when {
+            timeout.lowerBound < timeout.upperBound -> {
+                Random.nextInt(
+                    from = timeout.lowerBound.inWholeMinutes.toInt(),
+                    until = timeout.upperBound.inWholeMinutes.toInt()
+                ).minutes
+            }
+            // Random.nextInt() can't be used on the same value.
+            timeout.upperBound == timeout.lowerBound -> timeout.lowerBound.inWholeMinutes.minutes
+            // Invalid configuration: The lower bound must be less than the upper bound.
+            else -> {
+                logger.warn(
+                    "Timeout configuration's upperbound {} is greater than its lower bound {}.",
+                    timeout.lowerBound,
+                    timeout.upperBound
+                )
+                timeout.lowerBound
+            }
+        }
 
         // Timeouts should only be applied if the target is a user.
         val outcome = when {

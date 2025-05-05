@@ -102,11 +102,12 @@ class RouletteListener : ListenerAdapter() {
             // Message author must be present.
             val messageAuthor = checkNotNull(message.member)
             val mentions = message.mentions.members
+                .distinctBy { it.user.id }
+                .filterNot { it.user.isBot || it.user.isSystem }
 
             // Only moderators can target someone not themselves.
             if (mentions.isNotEmpty() && messageAuthor.isModerator(guildConfiguration)) {
                 val targets = mentions
-                    .distinctBy { it.user.id }
                     .map { member -> Target(member, member.getPermissionsGroup(guildConfiguration), messageAuthor) }
                 logger.debug(
                     "Roulette sequence {} is from a moderator targeting the following: {}",
