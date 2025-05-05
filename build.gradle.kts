@@ -1,6 +1,7 @@
 import com.google.protobuf.gradle.id
 
 plugins {
+    java
     kotlin("jvm") version "2.0.0"
     id("com.google.protobuf") version "0.9.5"
 }
@@ -26,7 +27,7 @@ protobuf {
 }
 
 dependencies {
-    implementation("ch.qos.logback:logback-classic:1.5.6")
+    implementation("ch.qos.logback:logback-classic:1.5.16")
     implementation("com.google.guava:guava:33.4.6-jre")
     implementation("com.google.protobuf:protobuf-java:4.30.1")
     implementation("com.google.protobuf:protobuf-kotlin:4.30.1")
@@ -37,9 +38,19 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+// Build a "Fat" JAR for direct deployment into a JRE container.
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "moe.best.kimoneri.MainKt"
+    }
+    from(configurations.runtimeClasspath.get().map { zipTree(it) })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 tasks.test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(21)
 }
