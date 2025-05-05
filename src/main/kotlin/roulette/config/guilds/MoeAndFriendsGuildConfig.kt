@@ -1,5 +1,6 @@
 package moe.best.kimoneri.roulette.config.guilds
 
+import moe.best.kimoneri.ext.toHumanString
 import moe.best.kimoneri.roulette.actions.Action
 import moe.best.kimoneri.roulette.config.GuildConfiguration
 import moe.best.kimoneri.roulette.config.GuildConfiguration.Activator
@@ -42,10 +43,10 @@ internal val MOE_AND_FRIENDS_GUILD_CONFIG = object : GuildConfiguration {
 
     private val TIMEOUT_AFFECTED_STRINGS = setOf(
         { targetName: String, duration: Duration ->
-            "What's the most you ever lost on a coin toss? $targetName wagered $duration."
+            "What's the most you ever lost on a coin toss? $targetName wagered ${duration.toHumanString()}."
         },
         { targetName: String, duration: Duration ->
-            "Reverend Waluigi has deemed $targetName a sinner. Their penance: A vow of silence for $duration."
+            "Reverend Waluigi has deemed $targetName a sinner. Their penance: A vow of silence for ${duration.toHumanString()}."
         }
     )
 
