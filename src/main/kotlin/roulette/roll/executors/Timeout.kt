@@ -1,6 +1,7 @@
 package moe.best.kimoneri.roulette.roll.executors
 
 import kotlinx.coroutines.future.await
+import moe.best.kimoneri.ext.toHumanString
 import moe.best.kimoneri.roulette.actions.Action
 import moe.best.kimoneri.roulette.actions.Target
 import moe.best.kimoneri.roulette.permissions.PermissionsGroup
@@ -54,7 +55,8 @@ object TimeoutExecutor {
 
         if (outcome == Action.Outcome.AFFECTED) {
             try {
-                target.member.timeoutFor(duration.toJavaDuration()).submit().await()
+                val reason = "[Roulette] Rolled timeout of duration ${duration.toHumanString(4)}"
+                target.member.timeoutFor(duration.toJavaDuration()).reason(reason).submit().await()
             } catch (e: InsufficientPermissionException) {
                 logger.error(e.toString())
                 message.reply("Error: Insufficient permissions to timeout, please check your config!").submit().await()
