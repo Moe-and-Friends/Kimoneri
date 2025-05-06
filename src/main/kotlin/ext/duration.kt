@@ -28,9 +28,9 @@ fun Duration.toHumanString(granularity: Int = 2): String {
                 minutes > 1 -> add("$minutes minutes")
             }
         }
-    }
+    }.take(granularity)
 
-    return when (components.take(granularity).size) {
+    return when (components.size) {
         1 -> components.single()
         2 -> components.joinToString(" and ")
         else -> {
