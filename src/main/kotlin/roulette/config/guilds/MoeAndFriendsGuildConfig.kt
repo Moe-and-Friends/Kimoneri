@@ -91,7 +91,7 @@ internal val MOE_AND_FRIENDS_GUILD_CONFIG = object : GuildConfiguration {
                 TIMEOUT_SELF_AFFECTED_STRINGS.random().invoke(target.effectiveName, duration.toHumanString())
 
             // Moderator roll by mod/Anivanilla.
-            outcome == Action.Outcome.AFFECTED && initiator.idLong == 29966380407980034 ->
+            outcome == Action.Outcome.AFFECTED && initiator.idLong == 229966380407980034 ->
                 "Ani readies her gun and fires indiscriminately, hitting ${target.effectiveName} and knocking them out for ${duration.toHumanString()}."
 
             // Rolled by a moderator.
