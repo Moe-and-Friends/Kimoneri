@@ -1,7 +1,10 @@
 package moe.best.kimoneri.roulette.actions
 
 import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.Message
+import kotlin.random.Random
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 
 
 /** A union of possible outcomes that a user can roll. */
@@ -22,17 +25,31 @@ sealed interface Action {
      * A value between [lowerBound, upperBound] will be selected.
      * These can be set to equal to force a specific duration.
      *
-     * @property lowerBound An inclusive lower bound this timeout may have a duration of.
-     * @property upperBound An inclusive upper bound this timeout may have a duration of.
+     * @property generator A [Generator] impl to generate Timeout values.
      * @property responder A [Responder] object to use when this Timeout is rolled.
+     * @property name A name identifier for this [Timeout].
      */
     class Timeout(
-        val lowerBound: Duration,
-        val upperBound: Duration,
-        val responder: Responder
+        val generator: Generator,
+        val responder: Responder,
+        private val name: String?,
     ) : Action {
 
-        /** Callback defining how the bot should respond when this [Timeout] is rolled.*/
+        /** Callback returning a [Duration] when this [Timeout] is rolled. */
+        fun interface Generator {
+            /**
+             * Generate a [Duration] that the bot will use as the duration of the [Timeout].
+             *
+             * @property target The [Target] of the roll.
+             * @property message The message that activated this roll.
+             */
+            fun get(
+                target: Target,
+                message: Message
+            ): Duration
+        }
+
+        /** Callback defining how the bot should respond when this [Timeout] is rolled. */
         fun interface Responder {
             /**
              * Generates a string that the bot will use to respond on a roll.
@@ -50,7 +67,41 @@ sealed interface Action {
             ): String
         }
 
-        override fun toString(): String = "Action:Timeout(lower=$lowerBound,upper=$upperBound)"
+        override fun toString() = name.toString()
+
+        companion object {
+
+            /**
+             * Create a [Timeout] with a duration randomly rolled between certain bounds.
+             *
+             * @property lowerBound An inclusive lower bound this timeout may have a duration of.
+             * @property upperBound An inclusive upper bound this timeout may have a duration of.
+             * @property responder A [Responder] object to use when this Timeout is rolled.
+             * @property name A name identifier for this [Timeout].
+             */
+            fun createFromBounds(
+                lowerBound: Duration,
+                upperBound: Duration,
+                responder: Responder,
+                name: String? = "Action:Timeout(lowerBound=$lowerBound,upperBound=$upperBound)"
+            ): Timeout {
+                val generator = Generator { _, _ ->
+                    when {
+                        lowerBound < upperBound -> {
+                            Random.nextInt(
+                                from = lowerBound.inWholeMinutes.toInt(),
+                                until = upperBound.inWholeMinutes.toInt() + 1 // Until is exclusive.
+                            ).minutes
+                        }
+                        // Random.nextInt() can't be used on the same value.
+                        upperBound == lowerBound -> lowerBound.inWholeMinutes.minutes
+                        // Invalid configuration: The lower bound must be less than the upper bound.
+                        else -> lowerBound
+                    }
+                }
+                return Timeout(generator, responder, name)
+            }
+        }
     }
 
     // TODO: Implement functionality related to this [Action].

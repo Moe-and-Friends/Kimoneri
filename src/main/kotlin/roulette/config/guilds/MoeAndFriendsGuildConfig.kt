@@ -104,23 +104,77 @@ internal val MOE_AND_FRIENDS_GUILD_CONFIG = object : GuildConfiguration {
     }
 
     override val rolls = listOf(
-        RollConfiguration(5u, Action.Timeout(lowerBound = 1.minutes, upperBound = 1.minutes, TIMEOUT_RESPONDER)),
-        RollConfiguration(15u, Action.Timeout(lowerBound = 2.minutes, upperBound = 4.minutes, TIMEOUT_RESPONDER)),
-        RollConfiguration(30u, Action.Timeout(lowerBound = 5.minutes, upperBound = 10.minutes, TIMEOUT_RESPONDER)),
-        RollConfiguration(50u, Action.Timeout(lowerBound = 10.minutes, upperBound = 30.minutes, TIMEOUT_RESPONDER)),
-        RollConfiguration(100u, Action.Timeout(lowerBound = 30.minutes, upperBound = 1.hours, TIMEOUT_RESPONDER)),
-        RollConfiguration(150u, Action.Timeout(lowerBound = 1.hours, upperBound = 3.hours, TIMEOUT_RESPONDER)),
-        RollConfiguration(150u, Action.Timeout(lowerBound = 3.hours, upperBound = 6.hours, TIMEOUT_RESPONDER)),
-        RollConfiguration(150u, Action.Timeout(lowerBound = 6.hours, upperBound = 8.hours, TIMEOUT_RESPONDER)),
-        RollConfiguration(100u, Action.Timeout(lowerBound = 8.hours, upperBound = 12.hours, TIMEOUT_RESPONDER)),
-        RollConfiguration(100u, Action.Timeout(lowerBound = 12.hours, upperBound = 1.days, TIMEOUT_RESPONDER)),
-        RollConfiguration(40u, Action.Timeout(lowerBound = 1.days, upperBound = 2.days, TIMEOUT_RESPONDER)),
-        RollConfiguration(40u, Action.Timeout(lowerBound = 2.days, upperBound = 4.days, TIMEOUT_RESPONDER)),
-        RollConfiguration(30u, Action.Timeout(lowerBound = 4.days, upperBound = 7.days, TIMEOUT_RESPONDER)),
-        RollConfiguration(20u, Action.Timeout(lowerBound = 7.days, upperBound = 14.days, TIMEOUT_RESPONDER)),
-        RollConfiguration(10u, Action.Timeout(lowerBound = 14.days, upperBound = 21.days, TIMEOUT_RESPONDER)),
-        RollConfiguration(6u, Action.Timeout(lowerBound = 21.days, upperBound = 25.days, TIMEOUT_RESPONDER)),
-        RollConfiguration(3u, Action.Timeout(lowerBound = 25.days, upperBound = 27.days, TIMEOUT_RESPONDER)),
-        RollConfiguration(1u, Action.Timeout(lowerBound = 28.days, upperBound = 28.days, TIMEOUT_RESPONDER)),
+        RollConfiguration(
+            5u,
+            Action.Timeout.createFromBounds(lowerBound = 1.minutes, upperBound = 1.minutes, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            15u,
+            Action.Timeout.createFromBounds(lowerBound = 2.minutes, upperBound = 4.minutes, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            30u,
+            Action.Timeout.createFromBounds(lowerBound = 5.minutes, upperBound = 10.minutes, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            50u,
+            Action.Timeout.createFromBounds(lowerBound = 10.minutes, upperBound = 30.minutes, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            100u,
+            Action.Timeout.createFromBounds(lowerBound = 30.minutes, upperBound = 1.hours, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            150u,
+            Action.Timeout.createFromBounds(lowerBound = 1.hours, upperBound = 3.hours, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            150u,
+            Action.Timeout.createFromBounds(lowerBound = 3.hours, upperBound = 6.hours, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            150u,
+            Action.Timeout.createFromBounds(lowerBound = 6.hours, upperBound = 8.hours, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            100u,
+            Action.Timeout.createFromBounds(lowerBound = 8.hours, upperBound = 12.hours, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            100u,
+            Action.Timeout.createFromBounds(lowerBound = 12.hours, upperBound = 1.days, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            40u,
+            Action.Timeout.createFromBounds(lowerBound = 1.days, upperBound = 2.days, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            40u,
+            Action.Timeout.createFromBounds(lowerBound = 2.days, upperBound = 4.days, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            30u,
+            Action.Timeout.createFromBounds(lowerBound = 4.days, upperBound = 7.days, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            20u,
+            Action.Timeout.createFromBounds(lowerBound = 7.days, upperBound = 14.days, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            10u,
+            Action.Timeout.createFromBounds(lowerBound = 14.days, upperBound = 21.days, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            6u,
+            Action.Timeout.createFromBounds(lowerBound = 21.days, upperBound = 25.days, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            3u,
+            Action.Timeout.createFromBounds(lowerBound = 25.days, upperBound = 27.days, TIMEOUT_RESPONDER)
+        ),
+        RollConfiguration(
+            1u,
+            Action.Timeout.createFromBounds(lowerBound = 28.days, upperBound = 28.days, TIMEOUT_RESPONDER)
+        ),
     )
 }
